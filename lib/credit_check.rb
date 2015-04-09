@@ -1,73 +1,50 @@
-card_number = "5541808923795240"
+class CreditChecker
 
-@valid = false
+  attr_reader :card_number
 
-#A sort of long way?
+  def initialize(card_number)
+    @card_number = card_number
+  end
 
-if (card_number[-2].to_i * 2).to_s.length == 2
-  temp_two = (card_number[-2].to_i * 2).to_s
-  card_number[-2] = (temp_two[0].to_i + temp_two[1].to_i).to_s
-else
-  card_number[-2] = (card_number[-2].to_i * 2).to_s
+  def arrays_for_days
+    card_number.chars.reverse
+  end
+
+  def double_it(i)
+    (arrays_for_days[i].to_i * 2).to_s
+  end
+
+  def begin_compute
+    arrays_for_days.each_index.map do |i|
+      if i.odd? && double_it(i).length == 2
+        temp = double_it(i)
+        arrays_for_days[i] = (temp[0].to_i + temp[1].to_i).to_s
+      elsif i.odd?
+        arrays_for_days[i] = double_it(i)
+      else
+        arrays_for_days[i] = arrays_for_days[i]
+      end
+    end
+  end
+
+  def numbers_to_add
+    begin_compute.map { |n| n.to_i }
+  end
+
+  def sum_it_up
+    numbers_to_add.reduce(0) { |sum, n| sum += n; sum }
+  end
+
+  def will_it_blend?
+    sum_it_up % 10 == 0
+  end
+
+  def check_validity
+    if will_it_blend?
+      "The number is valid!"
+    else
+      "The number is invalid!"
+    end
+  end
+
 end
-
-if (card_number[-4].to_i * 2).to_s.length == 2
-  temp_four = (card_number[-4].to_i * 2).to_s
-  card_number[-4] = (temp_four[0].to_i + temp_four[1].to_i).to_s
-else
-  card_number[-4] = (card_number[-4].to_i * 2).to_s
-end
-
-if (card_number[-6].to_i * 2).to_s.length == 2
-  temp_six = (card_number[-6].to_i * 2).to_s
-  card_number[-6] = (temp_six[0].to_i + temp_six[1].to_i).to_s
-else
-  card_number[-6] = (card_number[-6].to_i * 2).to_s
-end
-
-if (card_number[-8].to_i * 2).to_s.length == 2
-  temp_eight = (card_number[-8].to_i * 2).to_s
-  card_number[-8] = (temp_eight[0].to_i + temp_eight[1].to_i).to_s
-else
-  card_number[-8] = (card_number[-8].to_i * 2).to_s
-end
-
-if (card_number[-10].to_i * 2).to_s.length == 2
-  temp_ten = (card_number[-10].to_i * 2).to_s
-  card_number[-10] = (temp_ten[0].to_i + temp_ten[1].to_i).to_s
-else
-  card_number[-10] = (card_number[-10].to_i * 2).to_s
-end
-
-if (card_number[-12].to_i * 2).to_s.length == 2
-  temp_twelve = (card_number[-12].to_i * 2).to_s
-  card_number[-12] = (temp_twelve[0].to_i + temp_twelve[1].to_i).to_s
-else
-  card_number[-12] = (card_number[-12].to_i * 2).to_s
-end
-
-if (card_number[-14].to_i * 2).to_s.length == 2
-  temp_fourteen = (card_number[-14].to_i * 2).to_s
-  card_number[-14] = (temp_fourteen[0].to_i + temp_fourteen[1].to_i).to_s
-else
-  card_number[-14] = (card_number[-14].to_i * 2).to_s
-end
-
-if (card_number[-16].to_i * 2).to_s.length == 2
-  temp_sixteen = (card_number[-16].to_i * 2).to_s
-  card_number[-16] = (temp_sixteen[0].to_i + temp_sixteen[1].to_i).to_s
-else
-  card_number[-16] = (card_number[-16].to_i * 2).to_s
-end
-
-card_number.to_i
-
-will_it_blend = card_number[0].to_i + card_number[1].to_i + card_number[2].to_i + card_number[3].to_i + card_number[4].to_i + card_number[5].to_i + card_number[6].to_i + card_number[7].to_i + card_number[8].to_i + card_number[9].to_i + card_number[10].to_i + card_number[11].to_i + card_number[12].to_i + card_number[13].to_i + card_number[14].to_i + card_number[15].to_i
-
-if will_it_blend % 10 == 0
-  @valid = true
-  print "The number is valid!\n"
-else
-  print "The number is invalid!\n"
-end
-
