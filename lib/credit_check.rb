@@ -6,23 +6,27 @@ class CreditChecker
     @card_number = card_number
   end
 
-  def arrays_for_days
+  def reverse_it
     card_number.chars.reverse
   end
 
   def double_it(i)
-    (arrays_for_days[i].to_i * 2).to_s
+    (reverse_it[i].to_i * 2).to_s
+  end
+
+  def add_two_digit_index(i)
+    temp = double_it(i)
+    reverse_it[i] = (temp[0].to_i + temp[1].to_i).to_s
   end
 
   def begin_compute
-    arrays_for_days.each_index.map do |i|
+    reverse_it.each_index.map do |i|
       if i.odd? && double_it(i).length == 2
-        temp = double_it(i)
-        arrays_for_days[i] = (temp[0].to_i + temp[1].to_i).to_s
+        add_two_digit_index(i)
       elsif i.odd?
-        arrays_for_days[i] = double_it(i)
+        reverse_it[i] = double_it(i)
       else
-        arrays_for_days[i] = arrays_for_days[i]
+        reverse_it[i] = reverse_it[i]
       end
     end
   end

@@ -10,9 +10,9 @@ class CreditCheckerTest < Minitest::Test
     assert my_card
   end
 
-  def test_arrays_for_days
+  def test_reverse_array
     my_card = CreditChecker.new('5541808923795240')
-    result = my_card.arrays_for_days
+    result = my_card.reverse_it
     assert_equal ["0", "4", "2", "5", "9", "7", "3", "2", "9", "8", "0", "8", "1", "4", "5", "5"], result
   end
 
